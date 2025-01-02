@@ -104,89 +104,89 @@ const createMovieCard = (movie) => {
 };
 
 
-function getfilteredData(){
-  //console.log(event.target.value);
-  filteredArrOfMovies = 
-    searchValue?.length > 0 ? 
-      movie.filter(movie => searchValue === movie.Title.toLowerCase() || 
-      searchValue === movie.director_name.toLowerCase() ||
-      movie.write_name.toLowerCase().split(",").includes(searchValue) ||
-      movie.cast_name.toLowerCase().split(",").includes(searchValue)
-      ) : movies ;
+// function getfilteredData(){
+//   //console.log(event.target.value);
+//   filteredArrOfMovies = 
+//     searchValue?.length > 0 ? 
+//       movie.filter(movie => searchValue === movie.Title.toLowerCase() || 
+//       searchValue === movie.director_name.toLowerCase() ||
+//       movie.write_name.toLowerCase().split(",").includes(searchValue) ||
+//       movie.cast_name.toLowerCase().split(",").includes(searchValue)
+//       ) : movies ;
     
-    if(ratings > 0){
-      filteredArrOfMovies = searchValue?.length > 0 ? filteredArrOfMovies : movies ;
-      filteredArrOfMovies = filteredArrOfMovies.filter(movie => movies.imdb_rating >= ratings)
-    } 
+//     if(ratings > 0){
+//       filteredArrOfMovies = searchValue?.length > 0 ? filteredArrOfMovies : movies ;
+//       filteredArrOfMovies = filteredArrOfMovies.filter(movie => movies.imdb_rating >= ratings)
+//     } 
     
-    if(genre?.length>0){
-      filteredArrOfMovies = searchValue?.length > 0 || ratings > 7 ? filteredArrOfMovies : movies;
-      filteredArrOfMovies = filteredArrOfMovies.filter((movie) => movie.genre.includes(genre));
-    }
-    return filteredArrOfMovies;
-}
+//     if(genre?.length>0){
+//       filteredArrOfMovies = searchValue?.length > 0 || ratings > 7 ? filteredArrOfMovies : movies;
+//       filteredArrOfMovies = filteredArrOfMovies.filter((movie) => movie.genre.includes(genre));
+//     }
+//     return filteredArrOfMovies;
+// }
 
-function handleSearch(event){
-  searchValue = event.target.value.toLowerCase();
-  console.log(searchValue);
-  let filterBySearch = getfilteredData()
-  parentElement.innerHTML = "";
-  createMovieCard(filterBySearch);
-}
+// function handleSearch(event){
+//   searchValue = event.target.value.toLowerCase();
+//   console.log(searchValue);
+//   let filterBySearch = getfilteredData()
+//   parentElement.innerHTML = "";
+//   createMovieCard(filterBySearch);
+// }
 
-// debouncing is certain time delay which enable to display the movies only when typing is completede in searchbox
-function debounce(callback, delay){
-  let timerId;
-  return (...args) => {
-    clearTimeout(timerId);
-    timerId = setTimeout(() => {callback(...args)}, delay); 
-  }
-}
+// // debouncing is certain time delay which enable to display the movies only when typing is completede in searchbox
+// function debounce(callback, delay){
+//   let timerId;
+//   return (...args) => {
+//     clearTimeout(timerId);
+//     timerId = setTimeout(() => {callback(...args)}, delay); 
+//   }
+// }
 
-function handleRatingSelector(event){
-  ratings = event.target.value;
-  let filterByRating = getfilteredData();
-  parentElement.innerHTML = "";
-  createMovieCard(ratings ? filterByRating : movie);
-}
+// function handleRatingSelector(event){
+//   ratings = event.target.value;
+//   let filterByRating = getfilteredData();
+//   parentElement.innerHTML = "";
+//   createMovieCard(ratings ? filterByRating : movie);
+// }
 
-const debounceInput = debounce(handleSearch, 500);
+// const debounceInput = debounce(handleSearch, 500);
 
-searchInput.addEventListener("keyup",debounceInput);
+// searchInput.addEventListener("keyup",debounceInput);
 
-movieRatings.addEventListener("change",handleRatingSelector);
+// movieRatings.addEventListener("change",handleRatingSelector);
 
-//Filter by Genre
+// //Filter by Genre
 
-const genres = movies.reduce((acc, cur) => {
-  let genresArr = [];
-  let tempGenresArr = cur.genre.split(",");
-  acc = [...acc, ...tempGenresArr];
-  for(let genre of acc) {
-    if(!genresArr.includes(genre)){
-      genresArr = [...genresArr, genre];
-    }
-  }
-  return genresArr;
-}, []);
+// const genres = movies.reduce((acc, cur) => {
+//   let genresArr = [];
+//   let tempGenresArr = cur.genre.split(",");
+//   acc = [...acc, ...tempGenresArr];
+//   for(let genre of acc) {
+//     if(!genresArr.includes(genre)){
+//       genresArr = [...genresArr, genre];
+//     }
+//   }
+//   return genresArr;
+// }, []);
 
-for (let genre of genres){
-  const option = createElement("option");
-  option.classList.add("option");
-  option.setAttribute("value", genre);
-  option.innerText = genre;
-  movieGenres.appendChild(option); 
-}
+// for (let genre of genres){
+//   const option = createElement("option");
+//   option.classList.add("option");
+//   option.setAttribute("value", genre);
+//   option.innerText = genre;
+//   movieGenres.appendChild(option); 
+// }
  
-function handleGenreSelect(event){
- genre = EventTarget.target.value;
- const filteredMoviesByGenre = getfilteredData();
- parentElement.innerHTML = "";
- createMovieCard(genre ? filteredArrOfMovies : movie)
-}
+// function handleGenreSelect(event){
+//  genre = EventTarget.target.value;
+//  const filteredMoviesByGenre = getfilteredData();
+//  parentElement.innerHTML = "";
+//  createMovieCard(genre ? filteredArrOfMovies : movie)
+// }
 
 
-movieGenres.addEventListener("change", handleGenreSelect);
+// movieGenres.addEventListener("change", handleGenreSelect);
 
 createMovieCard(movie);
 
